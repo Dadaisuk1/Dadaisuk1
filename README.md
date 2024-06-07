@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Dadaisuk1/dadaisuk1/blob/main/Banner.gif" alt="banner" width="100%"></br>
+  <img src="https://github.com/Dadaisuk1/dadaisuk1/blob/main/Banner.gif" alt="banner" width="fill"></br>
   I'm Dadaisuk1, a passionate developer who loves to explore new technologies and contribute to open source projects.
 </p>
 
