@@ -4,7 +4,7 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
 
 #### GitHub Stats
 
-<a href="https://github.com/anuraghazra/github-readme-stats">
+<a href="https://github.com/Dadaisuk1/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&show_icons=true&theme=radical" />
 </a>
 <a href="https://github.com/anuraghazra/convoychat">
