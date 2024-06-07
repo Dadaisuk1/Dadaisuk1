@@ -37,7 +37,7 @@
     <img height=180 src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true" />
   </a>
   <a href="https://github.com/anuraghazra/convoychat">
-    <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
+    <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
   </a>
 </p>
 <!--
