@@ -34,13 +34,14 @@
 # 📊 GitHub Stats:
 <p align="center">
   <a href="https://github.com/anuraghazra/github-readme-stats">
-    <img height=180 src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true" />
+    <img height=180 src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true" />
   </a>
   <a href="https://github.com/anuraghazra/convoychat">
     <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
   </a>
 </p>
 <!--
+//other themes = ambient_gradient
 ### 🔝 Top Contributed Repo
 <p align="center">
   <img height=200 src="https://github-contributor-stats.vercel.app/api?username=Dadaisuk1&limit=5&theme=ambient_gradient&combine_all_yearly_contributions=true" />
