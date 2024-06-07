@@ -17,20 +17,13 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
 - 🌱 I’m currently learning new programming languages and frameworks
 - 👯 I’m looking to collaborate on innovative and challenging projects
 - 🤔 I’m looking for help with improving my coding skills and knowledge
-- 💬 Ask me about web development, open source, and technology in general
-- 📫 How to reach me: [your-email@example.com]
-- 😄 Pronouns: [Your Pronouns]
-- ⚡ Fun fact: I love to play chess and solve puzzles
+- 📫 How to reach me: Darwindarryljeanlargoza@gmail.com
+- ⚡ Fun fact: I love to play chess and online games
 
 #### Connect with Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/your-profile)
 [![Twitter](https://img.shields.io/badge/Twitter-Follow-blue)](https://twitter.com/your-profile)
-
-#### Latest Blog Posts
-
-<!-- BLOG-POST-LIST:START -->
-<!-- BLOG-POST-LIST:END -->
 
 #### Support Me
 
