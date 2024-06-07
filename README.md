@@ -29,5 +29,5 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
 
 If you like my work, consider buying me a coffee 😊
 
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-yellow)](https://www.buymeacoffee.com/your-profile)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-yellow)](https://www.buymeacoffee.com/dadaisuk1)
 
