@@ -33,10 +33,10 @@
 # 📊 GitHub Stats:
 <p align="center">
   <a href="https://github.com/anuraghazra/github-readme-stats">
-    <img height=200 src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true" />
+    <img height=150 src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true" />
   </a>
   <a href="https://github.com/anuraghazra/convoychat">
-    <img height=200 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
+    <img height=150 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
   </a>
 </p>
 
