@@ -1,6 +1,6 @@
-# 💫 About Me:
-- 🔭 I’m currently working on various open-source projects<br>- 🌱 I’m currently learning new programming languages and frameworks<br>- 👯 I’m looking to collaborate on innovative and challenging projects<br>- 🤔 I’m looking for help with improving my coding skills and knowledge<br>- 📫 How to reach me: Darwindarryljean.largoza@gmail.com<br>- ⚡ Fun fact: I love to play chess and online games
-
+<p align="center">
+  <img src="https://github.com/Dadaisuk1/your-repository/blob/main/banner.png" alt="banner">
+</p>
 
 ## 🌐 Socials:
 [![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white)](https://discord.gg/662611149015089153) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/https://www.facebook.com/darryl.largoza/) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/https://www.instagram.com/dadaisuk1/) [![Pinterest](https://img.shields.io/badge/Pinterest-%23E60023.svg?logo=Pinterest&logoColor=white)](https://pinterest.com/https://ph.pinterest.com/Dadaisuk1/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@https://www.youtube.com/channel/UCwbGDX1iEDtWmveMIsEMEdQ) 
