@@ -22,8 +22,8 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
 
 ## Connect with Me
 
-[![LinkedIn](https://img.shields.io/badge/Facebook-Connect-blue)](https://www.facebook.com/darryl.largoza/)
-[![Twitter](https://img.shields.io/badge/Twitter-Follow-blue)](https://twitter.com/your-profile)
+[![Facebook](https://img.shields.io/badge/Facebook-Follow-blue)](https://www.facebook.com/darryl.largoza/)
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-blue)](https://www.instagram.com/dadaisuk1/)
 
 ## Support Me
 
