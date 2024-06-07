@@ -1,8 +1,8 @@
-### Hi there 👋
+# Hi there 👋
 
 I'm Dadaisuk1, a passionate developer who loves to explore new technologies and contribute to open source projects.
 
-### GitHub Stats
+## GitHub Stats
 
 <a href="https://github.com/Dadaisuk1/github-readme-stats">
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&show_icons=true&theme=radical" />
@@ -11,7 +11,7 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
   <img height=200 align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=Dadaisuk1&layout=compact&langs_count=8&card_width=320&theme=radical" />
 </a>
 
-### About Me
+## About Me
 
 - 🔭 I’m currently working on various open-source projects
 - 🌱 I’m currently learning new programming languages and frameworks
@@ -20,12 +20,12 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
 - 📫 How to reach me: Darwindarryljean.largoza@gmail.com
 - ⚡ Fun fact: I love to play chess and online games
 
-#### Connect with Me
+## Connect with Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/your-profile)
 [![Twitter](https://img.shields.io/badge/Twitter-Follow-blue)](https://twitter.com/your-profile)
 
-#### Support Me
+## Support Me
 
 If you like my work, consider buying me a coffee 😊
 
