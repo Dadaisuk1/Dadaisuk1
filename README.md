@@ -17,7 +17,7 @@ I'm Dadaisuk1, a passionate developer who loves to explore new technologies and 
 - 🌱 I’m currently learning new programming languages and frameworks
 - 👯 I’m looking to collaborate on innovative and challenging projects
 - 🤔 I’m looking for help with improving my coding skills and knowledge
-- 📫 How to reach me: Darwindarryljeanlargoza@gmail.com
+- 📫 How to reach me: Darwindarryljean.largoza@gmail.com
 - ⚡ Fun fact: I love to play chess and online games
 
 #### Connect with Me
