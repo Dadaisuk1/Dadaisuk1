@@ -20,7 +20,7 @@
 
 ### 🔝 Top Contributed Repo
 <p align="center">
-![](https://github-contributor-stats.vercel.app/api?username=Dadaisuk1&limit=5&theme=ambient_gradient&combine_all_yearly_contributions=true)
+  <img height=200 src="https://github-contributor-stats.vercel.app/api?username=Dadaisuk1&limit=5&theme=ambient_gradient&combine_all_yearly_contributions=true" />
 </p>
 
   ## 💰 You can help me by Donating
