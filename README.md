@@ -40,12 +40,13 @@
     <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
   </a>
 </p>
+*/
 
 ### 🔝 Top Contributed Repo
 <p align="center">
   <img height=200 src="https://github-contributor-stats.vercel.app/api?username=Dadaisuk1&limit=5&theme=ambient_gradient&combine_all_yearly_contributions=true" />
 </p>
-*/
+--->
 
   ## 💰 You can help me by Donating
   [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/https://buymeacoffee.com/dadaisuk1) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/ko-fi.com/dadaisuk1) 
