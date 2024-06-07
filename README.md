@@ -30,7 +30,7 @@
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=plastic&logo=php&logoColor=white)
 ![Sketch](https://img.shields.io/badge/Sketch-FFB387?style=plastic&logo=sketch&logoColor=black)
 
-<!--
+
 # 📊 GitHub Stats:
 <p align="center">
   <a href="https://github.com/anuraghazra/github-readme-stats">
@@ -40,7 +40,7 @@
     <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=ambient_gradient&hide_border=true&include_all_commits=true&count_private=true&layout=compact" />
   </a>
 </p>
-
+<!--
 ### 🔝 Top Contributed Repo
 <p align="center">
   <img height=200 src="https://github-contributor-stats.vercel.app/api?username=Dadaisuk1&limit=5&theme=ambient_gradient&combine_all_yearly_contributions=true" />
