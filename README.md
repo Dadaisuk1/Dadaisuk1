@@ -33,9 +33,7 @@
 
 # 📊 GitHub Stats:
 <p align="center">
-  <a href="https://github.com/anuraghazra/github-readme-stats">
-    ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=dadaisuk1&show_icons=true&theme=transparent)
-  </a>
+   ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=dadaisuk1&show_icons=true&theme=transparent)
   <a href="https://github.com/anuraghazra/convoychat">
     <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
   </a>
