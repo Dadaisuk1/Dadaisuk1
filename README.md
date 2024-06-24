@@ -29,11 +29,11 @@
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=plastic&logo=php&logoColor=white)
 ![Sketch](https://img.shields.io/badge/Sketch-FFB387?style=plastic&logo=sketch&logoColor=black)
 
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=dadaisuk1&show_icons=true&theme=transparent)
 
 # 📊 GitHub Stats:
 <p align="center">
   <a href="https://github.com/anuraghazra/github-readme-stats">
-   ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=radical)
   </a>
   <a href="https://github.com/anuraghazra/convoychat">
     <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
