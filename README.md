@@ -28,6 +28,7 @@
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=plastic&logo=mysql&logoColor=white) 
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=plastic&logo=php&logoColor=white)
 ![Sketch](https://img.shields.io/badge/Sketch-FFB387?style=plastic&logo=sketch&logoColor=black)
+[<img src="[https://github.com/Dadaisuk1/playertrackersystem/blob/main/icons/excel.svg](https://github.com/Dadaisuk1/Dadaisuk1/blob/main/Gahntt%20Chart.svg)" alt="Excel Icon" width="48" height="48">]
 
 
 
