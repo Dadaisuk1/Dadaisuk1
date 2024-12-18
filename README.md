@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Dadaisuk1/dadaisuk1/blob/main/Banner%202.jpg" alt="banner" width="100%"></br>
+  <img src="https://github.com/Dadaisuk1/dadaisuk1/blob/main/media/Banner%202.jpg" alt="banner" width="100%"></br>
   <h4 align="center">I'm Darryl, a passionate developer who loves to explore new technologies and contribute to open source projects.</h2>
 </p>
 
