@@ -36,7 +36,8 @@
 <a href="#github-stats">
   <!-- here -->
   <p align="center">
-    <img height="200em" align="center" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" /><img height="200em" align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
+    <img height="200em" align="center" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
+    <img height="200em" align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
   </p>
 </a>
 
