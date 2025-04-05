@@ -33,22 +33,15 @@
 
 
 ## 📊 GitHub Stats:
-<p align="center">
-   <!-- here -->
-  <a href="https://github.com/anuraghazra/convoychat">
-    <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
-  </a>
-</p>
-<!--
-//other themes = ambient_gradient
-### 🔝 Top Contributed Repo
-<p align="center">
-  <img height=200 src="https://github-contributor-stats.vercel.app/api?username=Dadaisuk1&limit=5&theme=ambient_gradient&combine_all_yearly_contributions=true" />
-</p>
--->
+<a href="#github-stats">
+  <!-- here -->
+  <p align="center">
+    <img height="200em" align="center" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" /><img height="200em" align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=tokyonight&hide_border=false&include_all_commits=true&count_private=true&layout=compact" />
+  </p>
+</a>
 
-  ## 💰 You can help me by Donating
-  [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/https://buymeacoffee.com/dadaisuk1) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/ko-fi.com/dadaisuk1)
+## 💰 You can help me by Donating
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/https://buymeacoffee.com/dadaisuk1) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/ko-fi.com/dadaisuk1)
 
   ## 👁️ Profile Views
 ![](https://komarev.com/ghpvc/?username=Dadaisuk1&abbreviated=true)
