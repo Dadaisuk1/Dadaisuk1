@@ -15,7 +15,7 @@
 ![](https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=aura&hide_border=false&include_all_commits=true&count_private=false)
 ![](https://nirzak-streak-stats.vercel.app/?user=Dadaisuk1&theme=aura&hide_border=false)
  -->
-<img width="365em" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=aura&hide_border=false&include_all_commits=true&count_private=false"/>
+<img width="365em" src="https://github-readme-stats.vercel.app/api?username=Dadaisuk1&theme=aura&hide_border=false&include_all_commits=true&count_private=true"/>
 <img width="400em" src="https://nirzak-streak-stats.vercel.app/?user=Dadaisuk1&theme=aura&hide_border=false" />
 <img width="390px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=aura&hide_border=false&include_all_commits=true&count_private=false&layout=compact"/>
 </div>
