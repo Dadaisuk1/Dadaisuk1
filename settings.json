@@ -1,0 +1,68 @@
+{
+    "workbench.iconTheme": "symbols",
+    "workbench.colorTheme": "poimandres-noitalics",
+    "security.workspace.trust.untrustedFiles": "open",
+    "redhat.telemetry.enabled": true,
+    "git.autofetch": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "editor.renderWhitespace": "all",
+    "editor.accessibilityPageSize": 700,
+    "editor.formatOnSave": true,
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.sideBar.location": "right",
+    "chat.commandCenter.enabled": false,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.wordWrap": "on",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.cursorBlinking": "expand",
+    "breadcrumbs.symbolPath": "off",
+    "editor.fontLigatures": "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'zero', 'onum'",
+    "diffEditor.codeLens": true,
+    "editor.minimap.maxColumn": 100,
+    "window.menuBarVisibility": "compact",
+    "editor.tabSize": 2,
+    "editor.formatOnPaste": true,
+    "breadcrumbs.enabled": false,
+    "workbench.editor.centeredLayoutAutoResize": false,
+    "workbench.editor.splitInGroupLayout": "vertical",
+    "workbench.editor.wrapTabs": true,
+    "window.confirmBeforeClose": "always",
+    "files.autoSave": "afterDelay",
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontWeight": "normal",
+    "editor.fontSize": 13,
+    "editor.lineHeight": 2.5,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "comment",
+                "settings": {
+                    "foreground": "#6b6b6b",
+                    "fontStyle": "italic bold"
+                }
+            }
+        ]
+    },
+    "workbench.colorCustomizations": {
+      "editorSuggestWidget.selectedBackground": "#3A334B",
+
+    },
+    "editor.codeLens": false,
+    "editor.links": false,
+    "editor.matchBrackets": "never",
+    "editor.lightbulb.enabled": "off",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "scm.diffDecorations": "none",
+    "editor.lineNumbers": "relative",
+    "editor.detectIndentation": false,
+    "editor.showFoldingControls": "never",
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.snippetSuggestions": "top",
+    "emmet.triggerExpansionOnTab": true,
+    "update.mode": "none",
+    "extensions.ignoreRecommendations": true,
+}
