@@ -1,7 +1,7 @@
 ### 💫 About Me:
 <p align="center">
   <img src="https://github.com/Dadaisuk1/Dadaisuk1/blob/main/media/the%20gif%20animation%20thread.gif" alt="me" />
-  <h4 align="center">I'm Darryl, a passionate developer who loves to explore new technologies and contribute to open source projects.</h4>
+  <h4 align="center">I'm Darryl, a pasionate developer who loves to explore new technologies and contribute to open source projects.</h4>
 </p>
 
 ### 🌐 Socials:
