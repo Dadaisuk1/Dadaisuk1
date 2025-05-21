@@ -1,6 +1,6 @@
 ### 💫 About Me:
 <p align="center">
-  <img src="https://github.com/Dadaisuk1/Dadaisuk1/blob/main/media/the%20gif%20animation%20thread.gif" alt="me" />
+  <a href="#"><img src="https://github.com/Dadaisuk1/Dadaisuk1/blob/main/media/the%20gif%20animation%20thread.gif" width="800em" height=""/></a>
   <h4 align="center">I'm Darryl, a passionate developer who loves to explore new technologies and contribute to open source projects</h4>
 </p>
 
@@ -49,10 +49,7 @@
   ### 💰 You can help me by Donating
   [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/dadaisuk1) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dadaisuk1) 
 
-  
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
 
   ### 👁️ Profile Views
 <a href="#"><img src="https://komarev.com/ghpvc/?username=Dadaisuk1&abbreviated=true" alt="Figma" style="width: auto; height: auto;"/></a>
-  
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+ 
