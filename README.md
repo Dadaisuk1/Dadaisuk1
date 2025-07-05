@@ -1,9 +1,3 @@
-### 💫 About Me:
-<p align="center">
-  <a href="#"><img src="https://github.com/Dadaisuk1/Dadaisuk1/blob/main/media/the%20gif%20animation%20thread.gif" width="800em" height=""/></a>
-<!--   <h4 align="center">I'm Darryl, a passionate developer who loves to explore new technologies and contribute to open source projects</h4> -->
-</p>
-
 ### 🌐 Socials:
 [![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?logo=discord&logoColor=white)](https://discord.gg/https://discord.gg/Z3dC3SUBya) [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/https://www.facebook.com/dadaisuk1/) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/https://www.instagram.com/dadaisuk1/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dadaisuk1/) [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@https://www.youtube.com/@MutsarelaCheese) 
 
