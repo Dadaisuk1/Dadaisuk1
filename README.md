@@ -13,7 +13,7 @@
   <a href="#"><img src="https://img.shields.io/badge/markdown-%23000000.svg?style=flat-square&logo=markdown&logoColor=white" alt="Markdown" style="width: auto; height: auto;"/></a>
   <a href="#"><img src="https://img.shields.io/badge/php-%23777BB4.svg?style=flat-square&logo=php&logoColor=white" alt="PHP" style="width: auto; height: auto;"/></a>
   <a href="#"><img src="https://img.shields.io/badge/python-3670A0?style=flat-square&logo=python&logoColor=ffdd54" alt="Python" style="width: auto; height: auto;"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/r-%23276DC3.svg?style=flat-square&logo=r&logoColor=white" alt="R" style="width: auto; height: auto;"/></a>
+  <!---<a href="#"><img src="https://img.shields.io/badge/r-%23276DC3.svg?style=flat-square&logo=r&logoColor=white" alt="R" style="width: auto; height: auto;"/></a>--->
   <a href="#"><img src="https://img.shields.io/badge/git-%23F05033.svg?style=flat-square&logo=git&logoColor=white" alt="Git" style="width: auto; height: auto;"/></a>
   <a href="#"><img src="https://img.shields.io/badge/spring-%236DB33F.svg?style=flat-square&logo=spring&logoColor=white" alt="Spring" style="width: auto; height: auto;"/></a>
   <a href="#"><img src="https://img.shields.io/badge/mysql-4479A1.svg?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" style="width: auto; height: auto;"/></a>
