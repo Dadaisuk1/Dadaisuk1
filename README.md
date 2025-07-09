@@ -40,9 +40,10 @@
 <img width="330px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dadaisuk1&theme=aura&hide_border=false&include_all_commits=true&count_private=true&layout=compact"/>
 </div>
 
+<!--
   ### 💰 You can help me by Donating
   [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/dadaisuk1) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dadaisuk1) 
-
+-->
 
   ### 👁️ Profile Views
 <a href="#"><img src="https://komarev.com/ghpvc/?username=Dadaisuk1&abbreviated=true" alt="Figma" style="width: auto; height: auto;"/></a>
