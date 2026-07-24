@@ -3,7 +3,7 @@
 --->
 ##### Tech Stack:
 <div style="display: flex; align-items: center; gap: 8px;">
-  <a href="#"><img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=flat-square&logo=figma&logoColor=white" alt="Figma" style="width: auto; height: auto;"/></a>
+  <!-- <a href="#"><img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=flat-square&logo=figma&logoColor=white" alt="Figma" style="width: auto; height: auto;"/></a> -->
   <a href="#"><img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=flat-square&logo=figma&logoColor=white" alt="Java" style="width: auto; height: auto;"/></a>
   <a href="#"><img src="https://img.shields.io/badge/javascript-%23323330.svg?style=flat-square&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript" style="width: auto; height: auto;"/></a>
   <a href="#"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=flat-square&logo=react&logoColor=%2361DAFB" alt="React" style="width: auto; height: auto;"/></a>
