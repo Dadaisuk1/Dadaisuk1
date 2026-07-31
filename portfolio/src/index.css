@@ -38,6 +38,22 @@ body {
   box-sizing: border-box;
 }
 
+.animated-gradient {
+  background-size: 240% 240%;
+  animation: gradientShift 28s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 ::selection {
   background: #d4af37;
   color: #0d1b2a;

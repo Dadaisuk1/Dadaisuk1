@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import ProjectCard from './components/ProjectCard';
 import SectionHeading from './components/SectionHeading';
 import SkillPill from './components/SkillPill';
+import DotGridBackground from './components/DotGridBackground';
 import { colorTokens, contactLinks, heroContent, projects, skillGroups, stats } from './data/portfolioData';
 
 const contactIconMap = {
@@ -15,17 +16,29 @@ const contactIconMap = {
 function Home() {
   return (
     <div
-      className="min-h-screen text-cream"
+      className="relative min-h-screen text-cream overflow-hidden animated-gradient"
       style={{
-        backgroundImage: `linear-gradient(115deg, ${colorTokens.bgStart} 0%, ${colorTokens.bgEnd} 100%)`,
+        '--bg-start': colorTokens.bgStart,
+        '--bg-end': colorTokens.bgEnd,
+        backgroundImage: `linear-gradient(115deg, var(--bg-start) 0%, var(--bg-end) 100%)`,
       }}
     >
+      <DotGridBackground
+        dotColor="rgba(255, 255, 255, 0.24)"
+        dotSize={2.8}
+        spacing={34}
+        enableOrbit={true}
+        orbitSpeed={0.72}
+        impactRadius={240}
+        scaleOnHover={2.4}
+      />
+
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-[-6rem] top-[-4rem] h-64 w-64 rounded-full bg-gold/20 blur-3xl" />
         <div className="absolute right-[-4rem] top-[28vh] h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
       </div>
 
-      <div className="relative">
+      <div className="relative z-10">
         <Navigation />
 
         <main className="mx-auto flex max-w-6xl flex-col px-6 pb-16 pt-8 md:px-8 lg:px-12">
