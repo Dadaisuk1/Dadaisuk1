@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@mdi/react';
 import { mdiEmail, mdiGithub, mdiLinkedin } from '@mdi/js';
 import Navigation from './components/Navigation';
@@ -9,6 +9,12 @@ import SpotlightGrid from './components/SpotlightGrid';
 import DarkModeToggle from './components/DarkModeToggle';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
+import heroPhoto from './assets/2x2pic.jpg';
+
+// Cycles in the "Hi, I'm ___." greeting every 5s. Kept as a plain array
+// (not derived from anything) since it's a stylistic name-variant list,
+// not structured data reused elsewhere.
+const NAME_VARIANTS = ['Darwin', 'Darryl', 'Largoza'];
 
 const contactIconMap = {
   Email: mdiEmail,
@@ -18,19 +24,11 @@ const contactIconMap = {
 
 const heroContent = {
   eyebrow: 'Available for internship opportunities',
-  greeting: 'Hi, I’m Darwin.',
-  tagline: 'Full-stack developer · Cloud-aware, AI-assisted workflows',
+  tagline: 'Full-stack developer — software, web & frontend · Security-aware builder',
   summary:
-    'Information Technology student at Cebu Institute of Technology – University, building across the full stack — React, Node.js, Django — with AWS-certified cloud foundations and an eye for interface design.',
+    'Information Technology student at Cebu Institute of Technology – University, building across the full stack — software, web, and frontend development with React, Node.js, and Django — backed by AWS-certified cloud foundations and hands-on cybersecurity exposure through Kali Linux, Metasploit, and related security tooling.',
   location: 'Cebu, Philippines · IT Student',
 };
-
-const heroStats = [
-  { value: '4+', label: 'Featured projects' },
-  { value: '4', label: 'Certifications' },
-  { value: '2', label: 'Team collaborations' },
-  { value: '2', label: 'AWS credentials' },
-];
 
 const projects = [
   {
@@ -111,6 +109,9 @@ const skills = [
   'API design',
   'UX/UI',
   'Cloud foundations',
+  'Kali Linux',
+  'Metasploit',
+  'Security fundamentals',
 ];
 
 const contactLinks = [
@@ -129,6 +130,17 @@ const contactLinks = [
 ];
 
 function Home() {
+  const [nameIndex, setNameIndex] = useState(0);
+  const [namePaused, setNamePaused] = useState(false);
+
+  useEffect(() => {
+    if (namePaused) return undefined;
+    const id = setInterval(() => {
+      setNameIndex((i) => (i + 1) % NAME_VARIANTS.length);
+    }, 8000);
+    return () => clearInterval(id);
+  }, [namePaused]);
+
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: true,
@@ -165,8 +177,23 @@ function Home() {
             <p className="text-[0.8rem] font-semibold uppercase tracking-[0.34em] text-[#D4AF37]">
               {heroContent.eyebrow}
             </p>
-            <h1 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
-              {heroContent.greeting}
+            <h1
+              className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl"
+              onMouseEnter={() => setNamePaused(true)}
+              onMouseLeave={() => setNamePaused(false)}
+              onFocus={() => setNamePaused(true)}
+              onBlur={() => setNamePaused(false)}
+            >
+              Hi, I’m{' '}
+              <span
+                key={NAME_VARIANTS[nameIndex]}
+                className="name-swap inline-block min-w-[7ch] text-[#D4AF37]"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {NAME_VARIANTS[nameIndex]}
+              </span>
+              .
             </h1>
             <p className="mt-4 text-xl font-semibold text-[#D4AF37]">{heroContent.tagline}</p>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-[#F7F3E9]/85">
@@ -216,19 +243,14 @@ function Home() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-[#12263d]/80 p-8 shadow-2xl backdrop-blur-xl">
-            <div className="grid gap-4 sm:grid-cols-2">
-              {heroStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-[1.5rem] border border-white/10 bg-[#0f2034]/80 p-6"
-                >
-                  <div className="text-3xl font-semibold text-[#D4AF37]">{stat.value}</div>
-                  <div className="mt-2 text-sm uppercase tracking-[0.2em] text-[#F7F3E9]/75">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
+          <div className="rounded-[2rem] border border-white/10 bg-[#12263d]/80 p-6 shadow-2xl backdrop-blur-xl">
+            <div className="overflow-hidden rounded-[1.5rem] border border-[#D4AF37]/25">
+              <img
+                src={heroPhoto}
+                alt="Portrait of Darwin Darryl Jean E. Largoza"
+                className="aspect-[4/5] w-full object-cover"
+                loading="eager"
+              />
             </div>
 
             <div className="mt-6 rounded-[1.5rem] border border-[#D4AF37]/25 bg-[#D4AF37]/10 p-6">

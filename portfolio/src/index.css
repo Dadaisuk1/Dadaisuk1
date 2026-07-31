@@ -110,6 +110,19 @@
   }
 }
 
+@keyframes name-fade {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em) scale(0.96);
+    filter: blur(0.16em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 @keyframes marquee-left {
   from {
     transform: translateX(0);
@@ -168,6 +181,16 @@
 
   .pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .name-swap {
+    animation: name-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .name-swap {
+      animation: none;
+    }
   }
 
   .gradient-text {
