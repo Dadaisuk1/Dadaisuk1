@@ -1,14 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@mdi/react';
 import { mdiEmail, mdiGithub, mdiLinkedin } from '@mdi/js';
-// import Navigation from './components/Navigation';
-import ProjectCard from './components/ProjectCard';
+import Navigation from './components/Navigation';
+import ProjectCarousel from './components/ProjectCarousel';
 import SectionHeading from './components/SectionHeading';
 import SkillPill from './components/SkillPill';
 import SpotlightGrid from './components/SpotlightGrid';
 import DarkModeToggle from './components/DarkModeToggle';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
+import heroPhoto from './assets/2x2pic.jpg';
+
+// Cycles in the "Hi, I'm ___." greeting every 5s. Kept as a plain array
+// (not derived from anything) since it's a stylistic name-variant list,
+// not structured data reused elsewhere.
+const NAME_VARIANTS = ['Darwin', 'Darryl', 'Largoza'];
 
 const contactIconMap = {
   Email: mdiEmail,
@@ -17,18 +23,12 @@ const contactIconMap = {
 };
 
 const heroContent = {
-  eyebrow: 'Frontend developer',
-  name: 'I build polished digital experiences with calm, modern design.',
-  tagline:
-    'I blend thoughtful UI, clean code, and product-minded thinking to create websites that feel as strong as they look.',
+  eyebrow: 'Available for internship opportunities',
+  tagline: 'Full-stack developer — software, web & frontend · Security-aware builder',
+  summary:
+    'Information Technology student at Cebu Institute of Technology – University, building across the full stack — software, web, and frontend development with React, Node.js, and Django — backed by AWS-certified cloud foundations and hands-on cybersecurity exposure through Kali Linux, Metasploit, and related security tooling.',
+  location: 'Cebu, Philippines · IT Student',
 };
-
-const stats = [
-  { value: '4+', label: 'featured builds' },
-  { value: '100%', label: 'attention to detail' },
-  { value: '2+', label: 'years building' },
-  { value: '24/7', label: 'curious mindset' },
-];
 
 const projects = [
   {
@@ -40,42 +40,84 @@ const projects = [
     stack: ['React', 'Vite', 'Figma', 'Firebase'],
   },
   {
-    tag: 'Team Project',
+    tag: 'Team project',
     title: 'Notes App — Web2 / Web3 Hybrid',
     period: 'Dec 2025',
     blurb:
-      'Helped create a collaborative notes platform with a modern editor experience and strong frontend + backend integration.',
+      'Implemented collaborative note-taking features and frontend/backend sync for a modern productivity tool.',
     stack: ['React', 'Node.js', 'Express', 'MongoDB'],
   },
   {
-    tag: 'Frontend Lead',
+    tag: 'Frontend lead',
     title: 'CampusXperience — Event Platform',
     period: 'May 2025 – Dec 2025',
     blurb:
       'Led the interface build for a campus event discovery experience with reservation, ticketing, and reminder flows.',
     stack: ['React', 'Vite', 'Spring Boot', 'Java'],
   },
+  {
+    tag: 'Solo build',
+    title: 'CrediGo — Credit Education App',
+    period: 'Feb 2025',
+    blurb:
+      'Built an educational fintech interface to help users understand credit scores, budgeting, and financial habits.',
+    stack: ['React', 'Tailwind CSS', 'JavaScript', 'API integration'],
+  },
 ];
 
-const skillGroups = [
+const education = {
+  school: 'Cebu Institute of Technology – University',
+  degree: 'B.S. Information Technology',
+  years: '2022 – Present',
+  focus:
+    'Emphasis on software development, web systems, and cloud-ready applications with a product-focused mindset.',
+};
+
+const certifications = [
   {
-    label: 'Frameworks',
-    items: ['React', 'Node.js', 'Express', 'Django', 'Tailwind CSS'],
+    title: 'AWS Academy Graduate — Cloud Architecting',
+    issuer: 'Amazon Web Services',
+    issued: 'Dec 2025',
   },
-  { label: 'Languages', items: ['JavaScript', 'Python'] },
-  { label: 'Databases', items: ['PostgreSQL', 'MySQL', 'MongoDB'] },
-  { label: 'Workflow', items: ['Git', 'GitHub', 'Docker', 'Agile / Scrum'] },
-  { label: 'Design', items: ['Figma', 'Canva', 'Gamma'] },
   {
-    label: 'AI-Assisted Dev',
-    items: ['Claude Code', 'Cursor', 'Windsurf', 'Lovable'],
+    title: 'AWS Academy Graduate — Cloud Foundations',
+    issuer: 'Amazon Web Services',
+    issued: 'Sep 2025',
   },
+  {
+    title: 'OJT Readiness Program',
+    issuer: 'Cebu Institute of Technology – University',
+    issued: 'Aug 2025',
+  },
+  {
+    title: 'Lifelong Professional Skills',
+    issuer: 'IBM',
+    issued: 'Jul 2025',
+  },
+];
+
+const skills = [
+  'React',
+  'Node.js',
+  'Django',
+  'AWS',
+  'JavaScript',
+  'Python',
+  'Figma',
+  'Tailwind CSS',
+  'Git',
+  'API design',
+  'UX/UI',
+  'Cloud foundations',
+  'Kali Linux',
+  'Metasploit',
+  'Security fundamentals',
 ];
 
 const contactLinks = [
   {
     label: 'Email',
-    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=darwindarryjean.largoza@gmail.com',
+    href: 'mailto:darwindarryjean.largoza@gmail.com',
   },
   {
     label: 'GitHub',
@@ -88,6 +130,17 @@ const contactLinks = [
 ];
 
 function Home() {
+  const [nameIndex, setNameIndex] = useState(0);
+  const [namePaused, setNamePaused] = useState(false);
+
+  useEffect(() => {
+    if (namePaused) return undefined;
+    const id = setInterval(() => {
+      setNameIndex((i) => (i + 1) % NAME_VARIANTS.length);
+    }, 8000);
+    return () => clearInterval(id);
+  }, [namePaused]);
+
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: true,
@@ -98,164 +151,214 @@ function Home() {
       stopInertiaOnNavigate: true,
     });
 
-    lenis.on('scroll', (event) => {
-      console.log('Lenis scroll:', event);
-    });
-
     return () => {
       lenis.destroy?.();
     };
   }, []);
 
   return (
-    <div className="relative min-h-screen text-text-light overflow-hidden" style={{ backgroundColor: '#000000' }}>
-      {/* Dark Mode Toggle */}
-      <div className="fixed top-8 right-8 z-50">
-        <DarkModeToggle />
-      </div>
-
-      {/* Spotlight Grid - Dots hidden until cursor hovers */}
+    <div className="relative min-h-screen overflow-hidden text-[#F7F3E9] bg-[#0D1B2A]">
+      <Navigation />
       <SpotlightGrid
-        dotColor="rgba(255, 255, 255, 0.38)"
-        dotSize={2.1}
+        dotColor="rgba(247, 243, 233, 0.35)"
+        dotSize={2.4}
         spacing={34}
-        impactRadius={240}
-        scaleOnHover={2.4}
-        spotlightIntensity={0.95}
+        impactRadius={220}
+        scaleOnHover={1.35}
+        spotlightIntensity={0.9}
       />
 
-      <div className="relative z-10">
-        {/* <Navigation /> */}
+      <main className="relative z-10 mx-auto flex max-w-6xl flex-col px-6 pb-16 pt-24 md:px-8 lg:px-12">
+        <section
+          id="home"
+          className="grid min-h-[calc(100vh-6rem)] items-center gap-12 py-20 lg:grid-cols-[1.05fr_0.95fr]"
+        >
+          <div className="max-w-2xl">
+            <p className="text-[0.8rem] font-semibold uppercase tracking-[0.34em] text-[#D4AF37]">
+              {heroContent.eyebrow}
+            </p>
+            <h1
+              className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl"
+              onMouseEnter={() => setNamePaused(true)}
+              onMouseLeave={() => setNamePaused(false)}
+              onFocus={() => setNamePaused(true)}
+              onBlur={() => setNamePaused(false)}
+            >
+              Hi, I’m{' '}
+              <span
+                key={NAME_VARIANTS[nameIndex]}
+                className="name-swap inline-block min-w-[7ch] text-[#D4AF37]"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {NAME_VARIANTS[nameIndex]}
+              </span>
+              .
+            </h1>
+            <p className="mt-4 text-xl font-semibold text-[#D4AF37]">{heroContent.tagline}</p>
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-[#F7F3E9]/85">
+              {heroContent.summary}
+            </p>
+            <p className="mt-6 text-sm uppercase tracking-[0.28em] text-[#D4AF37]/90">
+              {heroContent.location}
+            </p>
 
-        <main className="mx-auto flex max-w-6xl flex-col px-6 pb-16 pt-8 md:px-8 lg:px-12">
-          <section id="home" className="grid min-h-[calc(100vh-4rem)] items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="max-w-2xl">
-              <p className="text-[0.8rem] font-semibold uppercase tracking-[0.3em]" style={{ color: '#D4AF37' }}>
-                {heroContent.eyebrow}
-              </p>
-              <h1 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl" style={{ color: '#F7F3E9' }}>
-                {heroContent.name}
-              </h1>
-              <p className="mt-6 text-lg leading-8" style={{ color: 'rgba(247, 243, 233, 0.75)' }}>
-                {heroContent.tagline}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href="#projects"
-                  className="rounded-full px-6 py-3 font-semibold transition"
-                  style={{ backgroundColor: '#D4AF37', color: '#0D1B2A' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#F7F3E9'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = '#D4AF37'}
-                >
-                  View Projects
-                </a>
-                <a
-                  href="#contact"
-                  className="rounded-full px-6 py-3 font-semibold transition"
-                  style={{ border: '1px solid rgba(212, 175, 55, 0.5)', color: '#D4AF37' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(212, 175, 55, 0.1)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-                >
-                  Get in Touch
-                </a>
-              </div>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a
+                href="mailto:darwindarryjean.largoza@gmail.com"
+                className="inline-flex items-center rounded-full bg-[#D4AF37] px-6 py-3 text-sm font-semibold text-[#0D1B2A] transition hover:bg-[#F7F3E9]"
+              >
+                Let’s connect
+              </a>
+              <a
+                href="#projects"
+                className="inline-flex items-center rounded-full border border-[#D4AF37] px-6 py-3 text-sm font-semibold text-[#D4AF37] transition hover:bg-white/10"
+              >
+                View projects
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center rounded-full border border-[#D4AF37] px-6 py-3 text-sm font-semibold text-[#D4AF37] transition hover:bg-white/10"
+              >
+                Résumé
+              </a>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 p-7 backdrop-blur-xl shadow-2xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {stats.map((stat) => (
-                  <div key={stat.label} className="rounded-2xl border border-white/10 p-4" style={{ backgroundColor: 'rgba(13, 27, 42, 0.6)' }}>
-                    <div className="text-2xl font-semibold" style={{ color: '#D4AF37' }}>{stat.value}</div>
-                    <div className="mt-1 text-sm" style={{ color: 'rgba(247, 243, 233, 0.7)' }}>{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 rounded-[1.5rem] p-6" style={{ border: '1px solid rgba(212, 175, 55, 0.25)', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em]" style={{ color: '#D4AF37' }}>
-                  Current focus
-                </p>
-                <p className="mt-3 text-lg leading-8" style={{ color: 'rgba(247, 243, 233, 0.9)' }}>
-                  Building thoughtful UI systems, fast prototypes, and polished web products with an eye for detail.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section id="projects" className="py-20">
-            <SectionHeading
-              eyebrow="Selected work"
-              title="Projects that balance clarity, craft, and impact."
-              subtitle="A mix of solo and team builds where the interface, flow, and experience all matter."
-            />
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {projects.map((project) => (
-                <ProjectCard key={project.title} project={project} />
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#0D1B2A]/70 px-4 py-2 text-sm text-[#F7F3E9] transition hover:border-[#D4AF37] hover:text-[#D4AF37] hover:bg-white/5"
+                >
+                  <Icon path={contactIconMap[link.label]} size={1} />
+                  {link.label}
+                </a>
               ))}
             </div>
-          </section>
+          </div>
 
-          <section id="about" className="py-20">
-            <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-              <div className="rounded-[2rem] border border-white/10 p-8 backdrop-blur-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}>
-                <SectionHeading
-                  eyebrow="About"
-                  title="A calm, modern approach to frontend development."
-                  subtitle="I care about structure, storytelling, and the feeling a product creates the moment it loads."
-                />
-              </div>
-
-              <div className="rounded-[2rem] border border-white/10 p-8 backdrop-blur-xl" style={{ backgroundColor: 'rgba(13, 27, 42, 0.5)' }}>
-                <div className="flex flex-wrap gap-3">
-                  {skillGroups.flatMap((group) => group.items.map((item) => <SkillPill key={item} label={item} />))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section id="contact" className="py-20">
-            <div className="rounded-[2rem] p-8 backdrop-blur-xl" style={{ border: '1px solid rgba(212, 175, 55, 0.25)', backgroundColor: 'rgba(212, 175, 55, 0.1)' }}>
-              <SectionHeading
-                eyebrow="Contact"
-                title="Let’s build something memorable."
-                subtitle="If you want a thoughtful web experience or a polished product launch, I’d love to connect."
+          <div className="rounded-[2rem] border border-white/10 bg-[#12263d]/80 p-6 shadow-2xl backdrop-blur-xl">
+            <div className="overflow-hidden rounded-[1.5rem] border border-[#D4AF37]/25">
+              <img
+                src={heroPhoto}
+                alt="Portrait of Darwin Darryl Jean E. Largoza"
+                className="aspect-[4/5] w-full object-cover"
+                loading="eager"
               />
-              <div className="mt-8 flex flex-wrap gap-4">
-                {contactLinks.map((link) => {
-                  const path = contactIconMap[link.label];
-                  return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={link.label}
-                      className="inline-flex h-12 w-12 items-center justify-center rounded-full transition"
-                      style={{ border: '1px solid rgba(255, 255, 255, 0.15)', backgroundColor: 'rgba(13, 27, 42, 0.7)', color: '#F7F3E9' }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.4)';
-                        e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-                        e.currentTarget.style.color = '#D4AF37';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                        e.currentTarget.style.backgroundColor = 'rgba(13, 27, 42, 0.7)';
-                        e.currentTarget.style.color = '#F7F3E9';
-                      }}
-                    >
-                      <Icon path={path} size={1} color="currentColor" aria-hidden="true" />
-                    </a>
-                  );
-                })}
+            </div>
+
+            <div className="mt-6 rounded-[1.5rem] border border-[#D4AF37]/25 bg-[#D4AF37]/10 p-6">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#D4AF37]">
+                Current focus
+              </p>
+              <p className="mt-3 text-base leading-7 text-[#F7F3E9]/90">
+                Building thoughtful UI systems, fast prototypes, and polished web products with an eye for detail.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="py-20">
+          <div className="rounded-[2rem] border border-white/10 bg-[#11233a]/90 p-8 shadow-2xl backdrop-blur-xl">
+            <SectionHeading
+              eyebrow="About"
+              title="A calm, modern approach to frontend development."
+              subtitle="I care about structure, storytelling, and the feeling a product creates the moment it loads."
+            />
+            <div className="mt-8 flex flex-wrap gap-3">
+              {skills.map((skill) => (
+                <SkillPill key={skill} label={skill} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="education" className="py-20">
+          <SectionHeading
+            eyebrow="Education"
+            title="Cebu Institute of Technology – University"
+            subtitle="B.S. Information Technology, 2022 – Present"
+          />
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-[2rem] border border-white/10 bg-[#12263d]/90 p-8 shadow-2xl backdrop-blur-xl">
+              <h3 className="text-xl font-semibold text-[#F7F3E9]">Program focus</h3>
+              <p className="mt-4 text-base leading-7 text-[#F7F3E9]/80">{education.focus}</p>
+            </div>
+            <div className="rounded-[2rem] border border-white/10 bg-[#12263d]/90 p-8 shadow-2xl backdrop-blur-xl">
+              <div className="space-y-3">
+                <div className="text-sm uppercase tracking-[0.24em] text-[#D4AF37]">Degree</div>
+                <p className="text-lg font-semibold text-[#F7F3E9]">{education.degree}</p>
+                <p className="text-sm text-[#F7F3E9]/70">{education.years}</p>
               </div>
             </div>
-          </section>
-        </main>
+          </div>
+        </section>
 
-        <footer className="border-t border-white/10 px-6 py-8 text-center text-sm" style={{ color: 'rgba(247, 243, 233, 0.6)' }}>
-          © 2026 Portfolio • Built with React and Tailwind.
-        </footer>
-      </div>
+        <section id="certifications" className="py-20">
+          <SectionHeading
+            eyebrow="Certifications"
+            title="Credentials that back the work and process."
+            subtitle="AWS, IBM, and CIT-U credentials focused on cloud readiness, professional skills, and practical development training."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {certifications.map((cert) => (
+              <article
+                key={cert.title}
+                className="rounded-[2rem] border border-white/10 bg-[#11233a]/90 p-6 shadow-2xl backdrop-blur-xl"
+              >
+                <h3 className="text-lg font-semibold text-[#F7F3E9]">{cert.title}</h3>
+                <p className="mt-2 text-sm text-[#D4AF37]/80">{cert.issuer}</p>
+                <p className="mt-4 text-sm leading-7 text-[#F7F3E9]/80">Issued {cert.issued}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="projects" className="py-20">
+          <SectionHeading
+            eyebrow="Selected work"
+            title="A carousel of featured projects."
+            subtitle="Native scroll snapping, clean product details, and clear storytelling for each build."
+          />
+          <div className="mt-10">
+            <ProjectCarousel projects={projects} />
+          </div>
+        </section>
+
+        <section id="contact" className="py-20">
+          <div className="rounded-[2rem] border border-white/10 bg-[#11233a]/90 p-8 shadow-2xl backdrop-blur-xl">
+            <SectionHeading
+              eyebrow="Contact"
+              title="Let’s build something memorable."
+              subtitle="If you want a thoughtful web experience or a polished product launch, I’d love to connect."
+            />
+            <div className="mt-8 flex flex-wrap gap-4">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-[#0D1B2A]/70 text-[#F7F3E9] transition hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37]"
+                >
+                  <Icon path={contactIconMap[link.label]} size={1} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/10 px-6 py-8 text-center text-sm text-[#F7F3E9]/70">
+        © 2026 Portfolio • Built with React and Tailwind.
+      </footer>
     </div>
   );
 }

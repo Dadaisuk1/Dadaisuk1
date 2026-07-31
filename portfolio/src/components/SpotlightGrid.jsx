@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 
 function SpotlightGrid({
-  dotColor = 'rgba(247, 243, 233, 0.2)',
+  dotColor = 'rgba(247, 243, 233, 0.18)',
   dotSize = 2.5,
-  spacing = 36,
+  spacing = dotSize * 10,
   impactRadius = 220,
-  scaleOnHover = 2.3,
-  spotlightIntensity = 0.95, // How bright dots appear in spotlight
+  scaleOnHover = 1.35,
+  spotlightIntensity = 0.9, // How bright cells appear in spotlight
 }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -15,21 +15,22 @@ function SpotlightGrid({
   const cursorRef = useRef({ x: -9999, y: -9999, active: false, fade: 0 });
 
   const buildDots = (width, height) => {
-    const cols = Math.ceil(width / spacing) + 2;
-    const rows = Math.ceil(height / spacing) + 2;
+    const cellSize = spacing;
+    const cols = Math.ceil(width / cellSize) + 1;
+    const rows = Math.ceil(height / cellSize) + 1;
     const dots = [];
 
     for (let col = 0; col < cols; col += 1) {
       for (let row = 0; row < rows; row += 1) {
-        const x = col * spacing + (Math.random() - 0.5) * spacing * 0.35;
-        const y = row * spacing + (Math.random() - 0.5) * spacing * 0.35;
+        const x = col * cellSize + cellSize * 0.5;
+        const y = row * cellSize + cellSize * 0.5;
 
         dots.push({
           x,
           y,
-          baseRadius: dotSize * (0.8 + Math.random() * 0.4),
-          baseAlpha: 0.05 + Math.random() * 0.05, // Very low base alpha for hidden effect
-          phase: Math.random() * Math.PI * 2,
+          // use the configured dotSize for visual dots (prevents 'pixelated' large cells)
+          size: dotSize,
+          baseAlpha: 0.08 + Math.random() * 0.09,
         });
       }
     }
@@ -114,41 +115,48 @@ function SpotlightGrid({
         cursor.fade = Math.max(0, cursor.fade - delta * 1.5);
       }
 
+      // If cursor hasn't activated the spotlight yet, skip drawing to keep background clean
+      if (cursor.fade <= 0) {
+        ctx.clearRect(0, 0, width, height);
+        frameRef.current = window.requestAnimationFrame(render);
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = dotColor;
       ctx.globalCompositeOperation = 'source-over';
+      // enable smoothing for subpixel rendering
+      if (ctx.imageSmoothingEnabled !== undefined) ctx.imageSmoothingEnabled = true;
 
       for (let i = 0; i < dots.length; i += 1) {
         const dot = dots[i];
         let x = dot.x;
         let y = dot.y;
-        let radius = dot.baseRadius;
-        let alpha = dot.baseAlpha; // Start with very low base alpha
+        let size = dot.size;
+        let alpha = dot.baseAlpha;
 
         const dx = x - cursor.x;
         const dy = y - cursor.y;
         const dist = Math.hypot(dx, dy);
 
-        // Spotlight effect: only reveal dots within impact radius
         if (dist < impactRadius && cursor.fade > 0) {
           const pull = 1 - dist / impactRadius;
           const effect = Math.pow(pull, 1.8) * cursor.fade;
 
-          // Boost alpha significantly in spotlight
-          alpha = dot.baseAlpha + effect * spotlightIntensity;
-          radius = radius * (1 + effect * (scaleOnHover - 1));
+          alpha = Math.min(1, dot.baseAlpha + effect * spotlightIntensity);
+          size = size * (1 + effect * (scaleOnHover - 1));
 
-          // Slight repel effect when cursor is present
-          const repel = effect * 8;
+          const move = effect * 10;
           if (dist > 0) {
-            x += (dx / dist) * repel;
-            y += (dy / dist) * repel;
+            x += (dx / dist) * move;
+            y += (dy / dist) * move;
           }
         }
 
-        ctx.globalAlpha = Math.min(1, alpha);
+        ctx.globalAlpha = alpha;
+        // draw a small circle for each dot for smoother appearance
         ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.arc(x, y, Math.max(0.5, size / 2), 0, Math.PI * 2);
         ctx.fill();
       }
 
