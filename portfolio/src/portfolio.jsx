@@ -66,8 +66,8 @@ const SKILL_GROUPS = [
 
 /* ------------------------------------------------------------------ */
 /*  Cursor "water reveal" — the signature element.                     */
-/*  Two stacked layers: an opaque dark-gradient top layer with a       */
-/*  CSS mask-image hole that eases toward the pointer, and a warm      */
+/*  Two stacked layers: a top layer with a moving reveal hole and a    */
+/*  warm gold-lit layer underneath that shows through the hole.        */
 /*  gold-lit layer underneath that only shows through the hole.        */
 /*  A few lightweight canvas wisps add drifting smoke texture inside   */
 /*  the revealed zone. Everything here runs off refs + rAF — no React  */
@@ -158,11 +158,7 @@ function CursorReveal() {
           const wy = eased.y + Math.sin(t * w.speed + w.offset) * w.radius * 0.6;
           const r = 26 + Math.sin(t * w.speed * 1.5 + w.offset) * 8;
 
-          const grad = ctx.createRadialGradient(wx, wy, 0, wx, wy, r);
-          grad.addColorStop(0, "rgba(247, 243, 233, 0.10)");
-          grad.addColorStop(0.5, "rgba(212, 175, 55, 0.07)");
-          grad.addColorStop(1, "rgba(212, 175, 55, 0)");
-          ctx.fillStyle = grad;
+          ctx.fillStyle = 'rgba(212, 175, 55, 0.08)';
           ctx.beginPath();
           ctx.arc(wx, wy, r, 0, Math.PI * 2);
           ctx.fill();
@@ -186,7 +182,6 @@ function CursorReveal() {
     <div className="reveal-fixed" aria-hidden="true">
       {/* Layer underneath — only visible through the mask hole */}
       <div className="reveal-under" />
-      {/* Top opaque gradient, punctured by a mask that follows the cursor */}
       <div ref={topLayerRef} className="reveal-top" />
       {/* Drifting smoke texture inside the revealed zone */}
       <canvas ref={canvasRef} className="reveal-canvas" />
@@ -263,7 +258,6 @@ export default function Portfolio() {
           color: var(--cream);
           font-family: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
           background: ${C.bgStart};
-          background: linear-gradient(115deg, ${C.bgStart} 0%, ${C.bgEnd} 100%);
           overflow-x: hidden;
         }
         .mono { font-family: 'IBM Plex Mono', 'SF Mono', Consolas, monospace; }
@@ -280,24 +274,10 @@ export default function Portfolio() {
         .reveal-under {
           position: absolute;
           inset: 0;
-          background:
-            radial-gradient(circle at 30% 20%, rgba(212,175,55,0.16), transparent 55%),
-            radial-gradient(circle at 70% 75%, rgba(65,90,119,0.35), transparent 60%),
-            linear-gradient(115deg, var(--navy-slate) 0%, var(--navy-deep) 100%);
+          background: var(--navy-deep);
         }
         .reveal-top {
-          --mx: -9999px;
-          --my: -9999px;
-          position: absolute;
-          inset: 0;
-          background: ${C.bgStart};
-          background: linear-gradient(115deg, ${C.bgStart} 0%, ${C.bgEnd} 100%);
-          -webkit-mask-image: radial-gradient(circle 230px at var(--mx) var(--my),
-            transparent 0%, transparent 30%,
-            rgba(0,0,0,0.5) 58%, black 100%);
-          mask-image: radial-gradient(circle 230px at var(--mx) var(--my),
-            transparent 0%, transparent 30%,
-            rgba(0,0,0,0.5) 58%, black 100%);
+          display: none;
         }
         .reveal-canvas {
           position: absolute;
@@ -438,7 +418,7 @@ export default function Portfolio() {
         }
         .hairline {
           height: 1px;
-          background: linear-gradient(90deg, rgba(212,175,55,0.5), rgba(212,175,55,0));
+          background: rgba(212,175,55,0.2);
           margin: 44px 0 0;
         }
 
