@@ -147,11 +147,6 @@ function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden text-[#F7F3E9] bg-[#0D1B2A]">
       <Navigation />
-
-      <div className="fixed top-8 right-8 z-50">
-        <DarkModeToggle />
-      </div>
-
       <SpotlightGrid
         dotColor="rgba(247, 243, 233, 0.35)"
         dotSize={2.4}
@@ -161,7 +156,7 @@ function Home() {
         spotlightIntensity={0.9}
       />
 
-      <main className="relative z-10 mx-auto flex max-w-6xl flex-col px-6 pb-16 pt-8 md:px-8 lg:px-12">
+      <main className="relative z-10 mx-auto flex max-w-6xl flex-col px-6 pb-16 pt-24 md:px-8 lg:px-12">
         <section
           id="home"
           className="grid min-h-[calc(100vh-6rem)] items-center gap-12 py-20 lg:grid-cols-[1.05fr_0.95fr]"
