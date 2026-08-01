@@ -14,7 +14,7 @@ I'm an IT student with hands-on experience across full-stack development, UI/UX 
 - **[Notes App – Web3 Notes Platform](https://github.com/piolonrqz/notes-app)**
   Built full-stack features for a hybrid Web2/Web3 notes app (React, Node.js/Express, MongoDB) with Cardano blockchain-based permanence, as part of a 5-person team.
 
-- **CampusXperience – Campus Event Platform**
+- **[CampusXperience – Campus Event Platform](https://github.com/sytrusz/campusxperience)**
   Built the complete frontend for a full-stack campus event platform (discovery, reservation, ticketing, reminders) — React (Vite) frontend with a Spring Boot (Java) backend, built as part of a 5-person team.
 
 - **[CrediGo – System Integration Project](https://github.com/Dadaisuk1/CrediGo_IT342)**
