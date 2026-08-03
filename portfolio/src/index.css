@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 /* Tailwind v4 reads its design tokens from @theme, not tailwind.config.js.
@@ -14,12 +14,12 @@
   --color-navy-accent: #415a77;
 
   --font-sans:
-    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  /* --font-serif is intentionally left at Tailwind's default (Georgia stack).
-     `font-serif` is used on the h1 and every section h2, so picking a real
-     display face is a design decision, not a bug fix — deferred to Phase 3. */
+  /* Montserrat covers the full 100-900 weight range, so font-semibold on
+     h1/h2/the nav logo renders as a real weight, not a synthesized fake. */
+  --font-serif: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
 @layer base {
@@ -76,24 +76,7 @@
   }
 }
 
-@keyframes name-fade {
-  from {
-    opacity: 0;
-    transform: translateY(0.35em) scale(0.96);
-    filter: blur(0.16em);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
 @layer components {
-  .name-swap {
-    animation: name-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
   .terminal-cursor {
     display: inline-block;
     width: 0.55ch;

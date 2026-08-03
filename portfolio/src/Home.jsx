@@ -6,21 +6,20 @@ import { CERT_PDFS, EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from './siteCo
 import ProjectCarousel from './components/ProjectCarousel';
 import SectionHeading from './components/SectionHeading';
 import SkillPill from './components/SkillPill';
-import SpotlightGrid from './components/SpotlightGrid';
+import { DottedGlowBackground } from './components/ui/dotted-glow-background';
 import TerminalPanel from './components/TerminalPanel';
+import TypewriterName from './components/TypewriterName';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import heroPhoto from './assets/2x2pic.jpg';
 import allyScreenshot from './assets/ally-screenshot.png';
+import credigoLogo from './assets/credigo-logo.svg';
 
 // Cycles in the "Hi, I'm ___." greeting. Kept as a plain array (not derived
 // from anything) since it's a stylistic name-variant list, not structured
 // data reused elsewhere.
 const NAME_VARIANTS = ['Darwin', 'Darryl', 'Largoza'];
 const FULL_NAME = 'Darwin Darryl Jean Largoza';
-// 8s was slow enough that most visitors saw one name and never learned it
-// rotates at all.
-const NAME_ROTATE_MS = 4000;
 
 const contactIconMap = {
   Email: mdiEmail,
@@ -79,6 +78,9 @@ const projects = [
     blurb:
       'Independently designed and built the entire app — frontend UI and backend API integration — for a 3-person System Integration and Architecture course, owning delivery end-to-end.',
     stack: ['React', 'Tailwind CSS', 'JavaScript', 'API integration'],
+    image: credigoLogo,
+    imageAlt: 'CrediGo logo',
+    imageFit: 'contain',
     githubUrl: 'https://github.com/Dadaisuk1/CrediGo_IT342',
   },
 ];
@@ -162,16 +164,7 @@ const contactLinks = [
 ];
 
 function Home() {
-  const [nameIndex, setNameIndex] = useState(0);
   const [namePaused, setNamePaused] = useState(false);
-
-  useEffect(() => {
-    if (namePaused) return undefined;
-    const id = setInterval(() => {
-      setNameIndex((i) => (i + 1) % NAME_VARIANTS.length);
-    }, NAME_ROTATE_MS);
-    return () => clearInterval(id);
-  }, [namePaused]);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -191,13 +184,18 @@ function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden text-[#F7F3E9] bg-[#0D1B2A]">
       <Navigation />
-      <SpotlightGrid
-        dotColor="rgba(247, 243, 233, 0.35)"
-        dotSize={2.4}
-        spacing={34}
+      <DottedGlowBackground
+        fixed
+        className="pointer-events-none z-0"
+        gap={34}
+        radius={1.6}
+        color="rgba(247, 243, 233, 0.35)"
+        glowColor="rgba(212, 175, 55, 0.9)"
+        opacity={1}
         impactRadius={220}
-        scaleOnHover={1.35}
+        scaleOnHover={1.6}
         spotlightIntensity={0.9}
+        moveAmount={14}
       />
 
       <main className="relative z-10 mx-auto flex max-w-6xl flex-col px-6 pb-16 pt-24 md:px-8 lg:px-12">
@@ -220,20 +218,11 @@ function Home() {
               {/* The rotation is decorative. Announcing it live meant a screen
                   reader read a new name every few seconds, forever — so the
                   visible span is hidden from AT and the full name is exposed
-                  once instead. */}
-              {/* No fixed min-width here: `ch` is sized off the font's "0"
-                  glyph, which in this serif display face is far wider than
-                  the actual letters in "Darwin"/"Darryl" — reserving 7ch left
-                  a large dead gap before the trailing period. The one-letter
-                  difference to "Largoza" is a small enough shift that the
-                  fade transition already covers it. */}
-              <span
-                key={NAME_VARIANTS[nameIndex]}
-                className="name-swap inline-block text-gold"
-                aria-hidden="true"
-              >
-                {NAME_VARIANTS[nameIndex]}
-              </span>
+                  once instead. No fixed min-width here either: a `ch`-based
+                  reservation previously left a dead gap before the period —
+                  the backspace/type motion below makes the width change
+                  expected and readable anyway. */}
+              <TypewriterName names={NAME_VARIANTS} paused={namePaused} className="text-gold" />
               <span className="sr-only-name">{FULL_NAME}</span>.
             </h1>
             <p className="mt-4 text-xl font-semibold text-[#D4AF37]">{heroContent.tagline}</p>

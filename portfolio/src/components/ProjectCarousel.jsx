@@ -82,7 +82,11 @@ function ProjectCarousel({ projects }) {
               <img
                 src={project.image}
                 alt={project.imageAlt || ''}
-                className="aspect-video w-full object-cover object-top"
+                className={
+                  project.imageFit === 'contain'
+                    ? 'h-40 w-full object-contain p-10'
+                    : 'aspect-video w-full object-cover object-top'
+                }
                 loading="lazy"
               />
             ) : null}
