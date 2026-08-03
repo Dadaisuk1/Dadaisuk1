@@ -1,0 +1,6 @@
+# AI agent tooling — installed via `npx skills add` / `npx impeccable install`.
+# Machine-local; reinstall rather than commit (~3.6MB of third-party code).
+.github
+.agents/
+.claude/
+skills-lock.json
