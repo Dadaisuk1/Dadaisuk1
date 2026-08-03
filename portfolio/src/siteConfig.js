@@ -10,3 +10,10 @@ export const RESUME_URL = '/DDJL_Resume.pdf';
 
 export const GITHUB_URL = 'https://github.com/dadaisuk1';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/ddjl/';
+
+// Cert badge PDFs — same stable-URL reasoning as RESUME_URL above.
+export const CERT_PDFS = {
+  awsCloudArchitecting: '/certs/aws-cloud-architecting.pdf',
+  awsCloudFoundations: '/certs/aws-cloud-foundations.pdf',
+  ibmLifelongProfessionalSkills: '/certs/ibm-lifelong-professional-skills.pdf',
+};

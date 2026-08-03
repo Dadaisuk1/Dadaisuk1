@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react';
 import { Icon } from '@mdi/react';
 import { mdiEmail, mdiGithub, mdiLinkedin } from '@mdi/js';
 import Navigation from './components/Navigation';
-import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from './siteConfig';
+import { CERT_PDFS, EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from './siteConfig';
 import ProjectCarousel from './components/ProjectCarousel';
 import SectionHeading from './components/SectionHeading';
 import SkillPill from './components/SkillPill';
 import SpotlightGrid from './components/SpotlightGrid';
+import TerminalPanel from './components/TerminalPanel';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import heroPhoto from './assets/2x2pic.jpg';
+import allyScreenshot from './assets/ally-screenshot.png';
 
 // Cycles in the "Hi, I'm ___." greeting. Kept as a plain array (not derived
 // from anything) since it's a stylistic name-variant list, not structured
@@ -28,9 +30,14 @@ const contactIconMap = {
 
 const heroContent = {
   eyebrow: 'Available for internship opportunities',
-  tagline: 'Full-stack developer — software, web & frontend · Security-aware builder',
+  // Was "Full-stack developer" — the user said they aren't a full-stack dev
+  // yet and are working toward it. Claiming it in the hero is a mismatch
+  // they'd have to walk back in an interview, so this reframes the same
+  // real skills (React, Node.js, Django, AWS, security tooling — all still
+  // true and all still below) as growth rather than a finished claim.
+  tagline: 'Frontend developer with a designer’s eye — growing into full-stack.',
   summary:
-    'Information Technology student at Cebu Institute of Technology – University, building across the full stack — software, web, and frontend development with React, Node.js, and Django — backed by AWS-certified cloud foundations and hands-on cybersecurity exposure through Kali Linux, Metasploit, and related security tooling.',
+    '4th-year IT student at Cebu Institute of Technology – University. I design in Figma and build with React, growing into Node.js and Django — backed by AWS-certified cloud foundations and hands-on cybersecurity fundamentals through Kali Linux and Metasploit.',
   location: 'Cebu, Philippines · IT Student',
 };
 
@@ -40,32 +47,39 @@ const projects = [
     title: 'Ally — AI-Powered Legal Platform',
     period: 'Jan 2025 – Dec 2025',
     blurb:
-      'Designed a chat-first interface and built the frontend experience for a legal AI platform with multi-role flows and polished product thinking.',
+      'Designed the interface in Figma, then built it in React: a chat-first AI legal Q&A flow with multi-role access for lawyers and clients.',
     stack: ['React', 'Vite', 'Figma', 'Firebase'],
+    image: allyScreenshot,
+    imageAlt: 'Ally chat interface asking "How can ALLY help you today?"',
+    liveUrl: 'https://ally-cit.vercel.app/',
+    githubUrl: 'https://github.com/piolonrqz/Capstone-ALLY',
   },
   {
     tag: 'Team project',
     title: 'Notes App — Web2 / Web3 Hybrid',
     period: 'Dec 2025',
     blurb:
-      'Implemented collaborative note-taking features and frontend/backend sync for a modern productivity tool.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB'],
+      'Full-stack contributor on a 5-person team: built the frontend editor components and improved backend rate-limiter reliability for a notes app with Cardano blockchain-based permanence.',
+    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Cardano'],
+    githubUrl: 'https://github.com/piolonrqz/notes-app',
   },
   {
     tag: 'Frontend lead',
     title: 'CampusXperience — Event Platform',
     period: 'May 2025 – Dec 2025',
     blurb:
-      'Led the interface build for a campus event discovery experience with reservation, ticketing, and reminder flows.',
+      'Led the frontend build for a campus event platform — discovery, reservations, ticketing, and reminders — integrated with a Spring Boot backend.',
     stack: ['React', 'Vite', 'Spring Boot', 'Java'],
+    githubUrl: 'https://github.com/sytrusz/campusxperience',
   },
   {
     tag: 'Solo build',
-    title: 'CrediGo — Credit Education App',
-    period: 'Feb 2025',
+    title: 'CrediGo — System Integration Project',
+    period: 'Apr 2025 – May 2025',
     blurb:
-      'Built an educational fintech interface to help users understand credit scores, budgeting, and financial habits.',
+      'Independently designed and built the entire app — frontend UI and backend API integration — for a 3-person System Integration and Architecture course, owning delivery end-to-end.',
     stack: ['React', 'Tailwind CSS', 'JavaScript', 'API integration'],
+    githubUrl: 'https://github.com/Dadaisuk1/CrediGo_IT342',
   },
 ];
 
@@ -82,21 +96,29 @@ const certifications = [
     title: 'AWS Academy Graduate — Cloud Architecting',
     issuer: 'Amazon Web Services',
     issued: 'Dec 2025',
+    verifyUrl: 'https://www.credly.com/badges/0da04100-740d-41f0-95c1-9c688737edde/public_url',
+    pdfUrl: CERT_PDFS.awsCloudArchitecting,
   },
   {
     title: 'AWS Academy Graduate — Cloud Foundations',
     issuer: 'Amazon Web Services',
     issued: 'Sep 2025',
+    verifyUrl: 'https://www.credly.com/badges/42f391ac-3ece-45d5-ac7d-42169faecb69/public_url',
+    pdfUrl: CERT_PDFS.awsCloudFoundations,
   },
   {
     title: 'OJT Readiness Program',
     issuer: 'Cebu Institute of Technology – University',
     issued: 'Aug 2025',
+    // No public verify link — this is a university-internal program, not a
+    // Credly-issued badge like the other three.
   },
   {
     title: 'Lifelong Professional Skills',
     issuer: 'IBM',
     issued: 'Jul 2025',
+    verifyUrl: 'https://www.credly.com/badges/b5b5da2d-0ce8-4f17-a336-1182e00b3533/public_url',
+    pdfUrl: CERT_PDFS.ibmLifelongProfessionalSkills,
   },
 ];
 
@@ -199,9 +221,15 @@ function Home() {
                   reader read a new name every few seconds, forever — so the
                   visible span is hidden from AT and the full name is exposed
                   once instead. */}
+              {/* No fixed min-width here: `ch` is sized off the font's "0"
+                  glyph, which in this serif display face is far wider than
+                  the actual letters in "Darwin"/"Darryl" — reserving 7ch left
+                  a large dead gap before the trailing period. The one-letter
+                  difference to "Largoza" is a small enough shift that the
+                  fade transition already covers it. */}
               <span
                 key={NAME_VARIANTS[nameIndex]}
-                className="name-swap inline-block min-w-[7ch] text-gold"
+                className="name-swap inline-block text-gold"
                 aria-hidden="true"
               >
                 {NAME_VARIANTS[nameIndex]}
@@ -256,37 +284,31 @@ function Home() {
           </div>
 
           <div className="rounded-[2rem] border border-white/10 bg-[#12263d]/80 p-6 shadow-2xl backdrop-blur-xl">
-            <div className="overflow-hidden rounded-[1.5rem] border border-[#D4AF37]/25">
-              <img
-                src={heroPhoto}
-                alt="Portrait of Darwin Darryl Jean E. Largoza"
-                className="aspect-[4/5] w-full object-cover"
-                loading="eager"
-              />
-            </div>
-
-            <div className="mt-6 rounded-[1.5rem] border border-[#D4AF37]/25 bg-[#D4AF37]/10 p-6">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#D4AF37]">
-                Current focus
-              </p>
-              <p className="mt-3 text-base leading-7 text-[#F7F3E9]/90">
-                Building thoughtful UI systems, fast prototypes, and polished web products with an eye for detail.
-              </p>
-            </div>
+            <TerminalPanel />
           </div>
         </section>
 
         <section id="about" className="py-20">
           <div className="rounded-[2rem] border border-white/10 bg-[#11233a]/90 p-8 shadow-2xl backdrop-blur-xl">
-            <SectionHeading
-              eyebrow="About"
-              title="A calm, modern approach to frontend development."
-              subtitle="I care about structure, storytelling, and the feeling a product creates the moment it loads."
-            />
-            <div className="mt-8 flex flex-wrap gap-3">
-              {skills.map((skill) => (
-                <SkillPill key={skill} label={skill} />
-              ))}
+            <div className="flex flex-col gap-8 md:flex-row md:items-start">
+              <img
+                src={heroPhoto}
+                alt="Portrait of Darwin Darryl Jean E. Largoza"
+                className="h-32 w-32 flex-shrink-0 rounded-2xl border border-gold/25 object-cover md:h-40 md:w-40"
+                loading="lazy"
+              />
+              <div className="flex-1">
+                <SectionHeading
+                  eyebrow="About"
+                  title="A calm, modern approach to frontend development."
+                  subtitle="I care about structure, storytelling, and the feeling a product creates the moment it loads."
+                />
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {skills.map((skill) => (
+                    <SkillPill key={skill} label={skill} />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -327,6 +349,28 @@ function Home() {
                 <h3 className="text-lg font-semibold text-[#F7F3E9]">{cert.title}</h3>
                 <p className="mt-2 text-sm text-[#D4AF37]/80">{cert.issuer}</p>
                 <p className="mt-4 text-sm leading-7 text-[#F7F3E9]/80">Issued {cert.issued}</p>
+                {cert.verifyUrl ? (
+                  <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+                    <a
+                      href={cert.verifyUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-semibold text-gold transition hover:text-cream"
+                    >
+                      Verify on Credly ↗
+                    </a>
+                    {cert.pdfUrl ? (
+                      <a
+                        href={cert.pdfUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-cream/50 transition hover:text-cream"
+                      >
+                        Badge PDF
+                      </a>
+                    ) : null}
+                  </div>
+                ) : null}
               </article>
             ))}
           </div>
@@ -335,8 +379,8 @@ function Home() {
         <section id="projects" className="py-20">
           <SectionHeading
             eyebrow="Selected work"
-            title="A carousel of featured projects."
-            subtitle="Native scroll snapping, clean product details, and clear storytelling for each build."
+            title="Four projects, one as frontend lead."
+            subtitle="Capstone, team builds, and one solo project — from AI legal chat to campus event ticketing."
           />
           <div className="mt-10">
             <ProjectCarousel projects={projects} />

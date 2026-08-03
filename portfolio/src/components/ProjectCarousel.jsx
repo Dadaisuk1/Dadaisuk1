@@ -76,23 +76,57 @@ function ProjectCarousel({ projects }) {
             ref={(el) => {
               cardRefs.current[index] = el;
             }}
-            className="min-w-[min(90vw,540px)] snap-start rounded-[2rem] border border-white/10 bg-[#11233a]/95 p-6 shadow-2xl backdrop-blur-xl"
+            className="min-w-[min(90vw,540px)] snap-start overflow-hidden rounded-[2rem] border border-white/10 bg-[#11233a]/95 shadow-2xl backdrop-blur-xl"
           >
-            <div className="inline-flex rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-[#D4AF37]">
-              {project.tag}
-            </div>
-            <h3 className="mt-5 text-2xl font-semibold text-[#F7F3E9]">{project.title}</h3>
-            <p className="mt-2 text-sm text-[#D4AF37]/80">{project.period}</p>
-            <p className="mt-4 text-sm leading-7 text-[#F7F3E9]/80">{project.blurb}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {project.stack.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/10 bg-[#0D1B2A]/70 px-3 py-1 text-xs text-[#F7F3E9]/80"
-                >
-                  {item}
-                </span>
-              ))}
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={project.imageAlt || ''}
+                className="aspect-video w-full object-cover object-top"
+                loading="lazy"
+              />
+            ) : null}
+            <div className="p-6">
+              <div className="inline-flex rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-[#D4AF37]">
+                {project.tag}
+              </div>
+              <h3 className="mt-5 text-2xl font-semibold text-[#F7F3E9]">{project.title}</h3>
+              <p className="mt-2 text-sm text-[#D4AF37]/80">{project.period}</p>
+              <p className="mt-4 text-sm leading-7 text-[#F7F3E9]/80">{project.blurb}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-[#0D1B2A]/70 px-3 py-1 text-xs text-[#F7F3E9]/80"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+              {project.liveUrl || project.githubUrl ? (
+                <div className="mt-6 flex flex-wrap gap-4 text-sm">
+                  {project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-semibold text-[#D4AF37] transition hover:text-[#F7F3E9]"
+                    >
+                      Live demo ↗
+                    </a>
+                  ) : null}
+                  {project.githubUrl ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-semibold text-[#D4AF37] transition hover:text-[#F7F3E9]"
+                    >
+                      GitHub ↗
+                    </a>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </article>
         ))}

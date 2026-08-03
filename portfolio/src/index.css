@@ -65,6 +65,17 @@
   }
 }
 
+@keyframes terminal-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes name-fade {
   from {
     opacity: 0;
@@ -81,6 +92,16 @@
 @layer components {
   .name-swap {
     animation: name-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .terminal-cursor {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background: currentColor;
+    animation: terminal-blink 1s steps(1) infinite;
   }
 
   .no-scrollbar {
@@ -108,6 +129,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     .name-swap {
+      animation: none;
+    }
+
+    .terminal-cursor {
       animation: none;
     }
 
