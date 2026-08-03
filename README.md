@@ -1,6 +1,6 @@
 # Hi, I'm Darwin Darryl Jean Largoza 👋
 
-4th-year Information Technology student | Full-Stack Developer | UI/UX Designer
+4th-year Information Technology student | Aspiring Full-Stack Developer | UI/UX Designer
 
 ## About Me
 
