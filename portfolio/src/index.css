@@ -1,19 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
+/* Tailwind v4 reads its design tokens from @theme, not tailwind.config.js.
+   The old v3-style config was never loaded, so every `text-gold` /
+   `text-cream` / `bg-gold` class in the app silently generated no CSS.
+   Anything declared here becomes a real utility: --color-gold -> text-gold,
+   bg-gold, border-gold, and so on. */
+@theme {
+  --color-gold: #d4af37;
+  --color-cream: #f7f3e9;
+  --color-navy: #0d1b2a;
+  --color-navy-surface: #1b263b;
+  --color-navy-accent: #415a77;
+
+  --font-sans:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* --font-serif is intentionally left at Tailwind's default (Georgia stack).
+     `font-serif` is used on the h1 and every section h2, so picking a real
+     display face is a design decision, not a bug fix — deferred to Phase 3. */
+}
+
 @layer base {
   :root {
     color-scheme: dark;
-    --navy-base: #0d1b2a;
-    --navy-mid: #1b263b;
-    --navy-light: #243447;
-    --text-primary: rgba(226, 232, 240, 0.9);
-    --text-secondary: rgba(226, 232, 240, 0.45);
-    --text-muted: rgba(226, 232, 240, 0.25);
-    --accent-blue: #3b82f6;
-    --accent-purple: #8b5cf6;
-    --accent-cyan: #06b6d4;
-    --accent-green: #10b981;
   }
 
   html {
@@ -24,14 +35,9 @@
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
-    background: var(--navy-base);
-    font-family:
-      "Plus Jakarta Sans",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
-    color: var(--text-primary);
+    background: var(--color-navy);
+    font-family: var(--font-sans);
+    color: var(--color-cream);
     line-height: 1.6;
     font-weight: 400;
     font-synthesis: none;
@@ -49,64 +55,13 @@
   }
 
   ::selection {
-    background: var(--accent-blue);
-    color: var(--navy-base);
+    background: var(--color-gold);
+    color: var(--color-navy);
   }
 
   code,
   pre {
-    font-family: "JetBrains Mono", monospace;
-  }
-}
-
-/* Keyframe Animations */
-@keyframes drift-a {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(60px, 40px);
-  }
-}
-
-@keyframes drift-b {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-50px, 60px);
-  }
-}
-
-@keyframes drift-c {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(40px, -50px);
-  }
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+    font-family: var(--font-mono);
   }
 }
 
@@ -123,103 +78,9 @@
   }
 }
 
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes marquee-right {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
-  }
-}
-
-/* Utility Classes */
 @layer components {
-  .drift-a {
-    animation: drift-a 22s ease-in-out infinite;
-  }
-  .drift-b {
-    animation: drift-b 28s ease-in-out infinite;
-  }
-  .drift-c {
-    animation: drift-c 18s ease-in-out infinite;
-  }
-
-  .fade-up {
-    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  .fade-in {
-    animation: fade-in 0.6s ease forwards;
-  }
-
-  .marquee-left {
-    animation: marquee-left 28s linear infinite;
-  }
-
-  .marquee-right {
-    animation: marquee-right 32s linear infinite;
-  }
-
-  .pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
   .name-swap {
     animation: name-fade 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .name-swap {
-      animation: none;
-    }
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .section-divider {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .glass-panel {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-  }
-
-  .glow-blue {
-    box-shadow:
-      inset 0 0 20px rgba(59, 130, 246, 0.1),
-      0 0 30px rgba(59, 130, 246, 0.05);
-  }
-
-  .glow-purple {
-    box-shadow:
-      inset 0 0 20px rgba(139, 92, 246, 0.1),
-      0 0 30px rgba(139, 92, 246, 0.05);
   }
 
   .no-scrollbar {
@@ -231,15 +92,27 @@
     display: none;
   }
 
-  .glow-cyan {
-    box-shadow:
-      inset 0 0 20px rgba(6, 182, 212, 0.1),
-      0 0 30px rgba(6, 182, 212, 0.05);
+  /* Screen-reader-only. Used to expose the full name once, since the
+     rotating Darwin/Darryl/Largoza span is aria-hidden. */
+  .sr-only-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
-  .glow-green {
-    box-shadow:
-      inset 0 0 20px rgba(16, 185, 129, 0.1),
-      0 0 30px rgba(16, 185, 129, 0.05);
+  @media (prefers-reduced-motion: reduce) {
+    .name-swap {
+      animation: none;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
   }
 }

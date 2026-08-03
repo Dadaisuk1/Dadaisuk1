@@ -1,179 +1,190 @@
 import { useEffect, useRef } from 'react';
 
+/** Stable pseudo-random in [0, 1) derived from a grid cell. */
+function hashUnit(col, row) {
+  const n = Math.sin(col * 127.1 + row * 311.7) * 43758.5453;
+  return n - Math.floor(n);
+}
+
+/**
+ * Cursor-revealed dot grid.
+ *
+ * The canvas is fixed to the viewport rather than stretched over the whole
+ * document. Previously it was `absolute inset-0` inside a page-height parent,
+ * so on a ~7000px page it built and iterated ~8,500 dots every frame — most of
+ * them thousands of pixels off screen. Viewport-sizing cuts that to ~1,700.
+ *
+ * The grid is anchored to the document (not the viewport) so dots slide past
+ * as you scroll instead of feeling glued to the screen. That is what the
+ * scroll offset below is for: we only draw the window of the lattice that is
+ * currently visible.
+ */
 function SpotlightGrid({
   dotColor = 'rgba(247, 243, 233, 0.18)',
   dotSize = 2.5,
   spacing = dotSize * 10,
   impactRadius = 220,
   scaleOnHover = 1.35,
-  spotlightIntensity = 0.9, // How bright cells appear in spotlight
+  spotlightIntensity = 0.9,
 }) {
   const canvasRef = useRef(null);
-  const containerRef = useRef(null);
-  const dotsRef = useRef([]);
   const frameRef = useRef(0);
   const cursorRef = useRef({ x: -9999, y: -9999, active: false, fade: 0 });
-
-  const buildDots = (width, height) => {
-    const cellSize = spacing;
-    const cols = Math.ceil(width / cellSize) + 1;
-    const rows = Math.ceil(height / cellSize) + 1;
-    const dots = [];
-
-    for (let col = 0; col < cols; col += 1) {
-      for (let row = 0; row < rows; row += 1) {
-        const x = col * cellSize + cellSize * 0.5;
-        const y = row * cellSize + cellSize * 0.5;
-
-        dots.push({
-          x,
-          y,
-          // use the configured dotSize for visual dots (prevents 'pixelated' large cells)
-          size: dotSize,
-          baseAlpha: 0.08 + Math.random() * 0.09,
-        });
-      }
-    }
-
-    dotsRef.current = dots;
-  };
+  const sizeRef = useRef({ width: 0, height: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return undefined;
+    if (!canvas) return undefined;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return undefined;
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const resize = () => {
-      const rect = container.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.max(1, rect.width * dpr);
-      canvas.height = Math.max(1, rect.height * dpr);
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.round(width * dpr));
+      canvas.height = Math.max(1, Math.round(height * dpr));
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildDots(rect.width, rect.height);
+      sizeRef.current = { width, height };
     };
 
     resize();
+    window.addEventListener('resize', resize);
 
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(container);
-
-    return () => resizeObserver.disconnect();
-  }, [spacing, dotSize]);
-
-  useEffect(() => {
     const onMove = (event) => {
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      const inside = x >= 0 && y >= 0 && x <= rect.width && y <= rect.height;
-
-      cursorRef.current.x = x;
-      cursorRef.current.y = y;
-      cursorRef.current.active = inside;
-      cursorRef.current.fade = 1;
+      const cursor = cursorRef.current;
+      cursor.x = event.clientX;
+      cursor.y = event.clientY;
+      cursor.active = true;
+      cursor.fade = 1;
     };
 
     const onLeave = () => {
       cursorRef.current.active = false;
     };
 
-    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('pointerleave', onLeave);
 
-    return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerleave', onLeave);
-    };
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return undefined;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return undefined;
+    // Reduced motion: no rAF loop at all, nothing ever painted.
+    if (reduceMotion) {
+      return () => {
+        window.removeEventListener('resize', resize);
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerleave', onLeave);
+      };
+    }
 
     let lastTime = performance.now();
 
     const render = (time) => {
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      const dots = dotsRef.current;
+      frameRef.current = window.requestAnimationFrame(render);
+
+      const { width, height } = sizeRef.current;
       const cursor = cursorRef.current;
-      const delta = (time - lastTime) * 0.001;
+      const delta = Math.min((time - lastTime) * 0.001, 0.05);
       lastTime = time;
 
       if (!cursor.active) {
         cursor.fade = Math.max(0, cursor.fade - delta * 1.5);
       }
 
-      // If cursor hasn't activated the spotlight yet, skip drawing to keep background clean
+      // Nothing to show until the pointer wakes the grid up.
       if (cursor.fade <= 0) {
         ctx.clearRect(0, 0, width, height);
-        frameRef.current = window.requestAnimationFrame(render);
         return;
       }
 
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = dotColor;
-      ctx.globalCompositeOperation = 'source-over';
-      // enable smoothing for subpixel rendering
-      if (ctx.imageSmoothingEnabled !== undefined) ctx.imageSmoothingEnabled = true;
 
-      for (let i = 0; i < dots.length; i += 1) {
-        const dot = dots[i];
-        let x = dot.x;
-        let y = dot.y;
-        let size = dot.size;
-        let alpha = dot.baseAlpha;
+      // Anchor the lattice to the document so it scrolls with the page, then
+      // walk only the rows and columns inside the current viewport.
+      const scrollX = window.scrollX % spacing;
+      const scrollY = window.scrollY % spacing;
 
-        const dx = x - cursor.x;
-        const dy = y - cursor.y;
-        const dist = Math.hypot(dx, dy);
+      const startCol = Math.floor(scrollX / spacing);
+      const endCol = Math.ceil((width + scrollX) / spacing);
+      const startRow = Math.floor(scrollY / spacing);
+      const endRow = Math.ceil((height + scrollY) / spacing);
 
-        if (dist < impactRadius && cursor.fade > 0) {
-          const pull = 1 - dist / impactRadius;
-          const effect = Math.pow(pull, 1.8) * cursor.fade;
+      const radiusSq = impactRadius * impactRadius;
 
-          alpha = Math.min(1, dot.baseAlpha + effect * spotlightIntensity);
-          size = size * (1 + effect * (scaleOnHover - 1));
+      for (let col = startCol; col <= endCol; col += 1) {
+        for (let row = startRow; row <= endRow; row += 1) {
+          const baseX = col * spacing - scrollX;
+          const baseY = row * spacing - scrollY;
 
-          const move = effect * 10;
-          if (dist > 0) {
-            x += (dx / dist) * move;
-            y += (dy / dist) * move;
+          // Per-dot alpha jitter keeps the grid from looking mechanical. It
+          // has to be a deterministic hash of the cell, not Math.random(),
+          // or every dot would flicker on each frame.
+          let alpha = (0.08 + hashUnit(col, row) * 0.09) * cursor.fade;
+          let x = baseX;
+          let y = baseY;
+          let size = dotSize;
+
+          const dx = baseX - cursor.x;
+          const dy = baseY - cursor.y;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < radiusSq) {
+            const dist = Math.sqrt(distSq);
+            const effect = Math.pow(1 - dist / impactRadius, 1.8) * cursor.fade;
+
+            alpha = Math.min(1, alpha + effect * spotlightIntensity);
+            size *= 1 + effect * (scaleOnHover - 1);
+
+            const move = effect * 10;
+            if (dist > 0) {
+              x += (dx / dist) * move;
+              y += (dy / dist) * move;
+            }
           }
-        }
 
-        ctx.globalAlpha = alpha;
-        // draw a small circle for each dot for smoother appearance
-        ctx.beginPath();
-        ctx.arc(x, y, Math.max(0.5, size / 2), 0, Math.PI * 2);
-        ctx.fill();
+          ctx.globalAlpha = alpha;
+          ctx.beginPath();
+          ctx.arc(x, y, Math.max(0.5, size / 2), 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
 
-      frameRef.current = window.requestAnimationFrame(render);
+      ctx.globalAlpha = 1;
     };
 
+    // Don't burn frames while the tab is in the background.
+    const onVisibility = () => {
+      if (document.hidden) {
+        window.cancelAnimationFrame(frameRef.current);
+        frameRef.current = 0;
+      } else if (!frameRef.current) {
+        lastTime = performance.now();
+        frameRef.current = window.requestAnimationFrame(render);
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibility);
     frameRef.current = window.requestAnimationFrame(render);
 
     return () => {
       window.cancelAnimationFrame(frameRef.current);
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerleave', onLeave);
     };
-  }, [dotColor, impactRadius, scaleOnHover, spotlightIntensity]);
+  }, [dotColor, dotSize, spacing, impactRadius, scaleOnHover, spotlightIntensity]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-      <canvas ref={canvasRef} className="block h-full w-full" />
-    </div>
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0 block h-full w-full"
+    />
   );
 }
 

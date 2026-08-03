@@ -5,7 +5,8 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // .agents/.claude hold vendored AI-skill packages, not project source.
+  globalIgnores(['dist', '.agents', '.claude', '.github']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [

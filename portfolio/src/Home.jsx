@@ -2,19 +2,23 @@ import { useEffect, useState } from 'react';
 import { Icon } from '@mdi/react';
 import { mdiEmail, mdiGithub, mdiLinkedin } from '@mdi/js';
 import Navigation from './components/Navigation';
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from './siteConfig';
 import ProjectCarousel from './components/ProjectCarousel';
 import SectionHeading from './components/SectionHeading';
 import SkillPill from './components/SkillPill';
 import SpotlightGrid from './components/SpotlightGrid';
-import DarkModeToggle from './components/DarkModeToggle';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import heroPhoto from './assets/2x2pic.jpg';
 
-// Cycles in the "Hi, I'm ___." greeting every 5s. Kept as a plain array
-// (not derived from anything) since it's a stylistic name-variant list,
-// not structured data reused elsewhere.
+// Cycles in the "Hi, I'm ___." greeting. Kept as a plain array (not derived
+// from anything) since it's a stylistic name-variant list, not structured
+// data reused elsewhere.
 const NAME_VARIANTS = ['Darwin', 'Darryl', 'Largoza'];
+const FULL_NAME = 'Darwin Darryl Jean Largoza';
+// 8s was slow enough that most visitors saw one name and never learned it
+// rotates at all.
+const NAME_ROTATE_MS = 4000;
 
 const contactIconMap = {
   Email: mdiEmail,
@@ -114,18 +118,24 @@ const skills = [
   'Security fundamentals',
 ];
 
+// `external` drives target/rel — a mailto: must stay in the current tab. With
+// target="_blank" it opened a blank tab and then did nothing on any machine
+// without a configured mail client.
 const contactLinks = [
   {
     label: 'Email',
-    href: 'mailto:darwindarryjean.largoza@gmail.com',
+    href: `mailto:${EMAIL}`,
+    external: false,
   },
   {
     label: 'GitHub',
-    href: 'https://github.com/dadaisuk1',
+    href: GITHUB_URL,
+    external: true,
   },
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/ddjl/',
+    href: LINKEDIN_URL,
+    external: true,
   },
 ];
 
@@ -137,7 +147,7 @@ function Home() {
     if (namePaused) return undefined;
     const id = setInterval(() => {
       setNameIndex((i) => (i + 1) % NAME_VARIANTS.length);
-    }, 8000);
+    }, NAME_ROTATE_MS);
     return () => clearInterval(id);
   }, [namePaused]);
 
@@ -185,15 +195,18 @@ function Home() {
               onBlur={() => setNamePaused(false)}
             >
               Hi, I’m{' '}
+              {/* The rotation is decorative. Announcing it live meant a screen
+                  reader read a new name every few seconds, forever — so the
+                  visible span is hidden from AT and the full name is exposed
+                  once instead. */}
               <span
                 key={NAME_VARIANTS[nameIndex]}
-                className="name-swap inline-block min-w-[7ch] text-[#D4AF37]"
-                aria-live="polite"
-                aria-atomic="true"
+                className="name-swap inline-block min-w-[7ch] text-gold"
+                aria-hidden="true"
               >
                 {NAME_VARIANTS[nameIndex]}
               </span>
-              .
+              <span className="sr-only-name">{FULL_NAME}</span>.
             </h1>
             <p className="mt-4 text-xl font-semibold text-[#D4AF37]">{heroContent.tagline}</p>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-[#F7F3E9]/85">
@@ -205,22 +218,22 @@ function Home() {
 
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href="mailto:darwindarryjean.largoza@gmail.com"
-                className="inline-flex items-center rounded-full bg-[#D4AF37] px-6 py-3 text-sm font-semibold text-[#0D1B2A] transition hover:bg-[#F7F3E9]"
+                href={`mailto:${EMAIL}`}
+                className="inline-flex items-center rounded-full bg-gold px-6 py-3 text-sm font-semibold text-navy transition hover:bg-cream"
               >
                 Let’s connect
               </a>
               <a
                 href="#projects"
-                className="inline-flex items-center rounded-full border border-[#D4AF37] px-6 py-3 text-sm font-semibold text-[#D4AF37] transition hover:bg-white/10"
+                className="inline-flex items-center rounded-full border border-gold px-6 py-3 text-sm font-semibold text-gold transition hover:bg-white/10"
               >
                 View projects
               </a>
               <a
-                href="/resume.pdf"
+                href={RESUME_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center rounded-full border border-[#D4AF37] px-6 py-3 text-sm font-semibold text-[#D4AF37] transition hover:bg-white/10"
+                className="inline-flex items-center rounded-full border border-gold px-6 py-3 text-sm font-semibold text-gold transition hover:bg-white/10"
               >
                 Résumé
               </a>
@@ -231,10 +244,9 @@ function Home() {
                 <a
                   key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={link.label}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#0D1B2A]/70 px-4 py-2 text-sm text-[#F7F3E9] transition hover:border-[#D4AF37] hover:text-[#D4AF37] hover:bg-white/5"
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-navy/70 px-4 py-2 text-sm text-cream transition hover:border-gold hover:text-gold hover:bg-white/5"
                 >
                   <Icon path={contactIconMap[link.label]} size={1} />
                   {link.label}
@@ -343,10 +355,10 @@ function Home() {
                 <a
                   key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noreferrer' : undefined}
                   aria-label={link.label}
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-[#0D1B2A]/70 text-[#F7F3E9] transition hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37]"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-navy/70 text-cream transition hover:border-gold hover:bg-gold/10 hover:text-gold"
                 >
                   <Icon path={contactIconMap[link.label]} size={1} />
                 </a>

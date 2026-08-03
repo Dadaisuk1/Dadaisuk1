@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
-import DarkModeToggle from './DarkModeToggle';
+import { RESUME_URL } from '../siteConfig';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -16,34 +16,43 @@ const links = [
   { href: '#contact', label: 'Contact' },
 ];
 
+const SECTION_IDS = links.map((link) => link.href.slice(1));
+
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
+    // Six getBoundingClientRect() calls per scroll event was enough to cause
+    // layout thrash on a long page. Coalesce into one read per frame instead.
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
       setIsScrolled(window.scrollY > 60);
 
-      // Determine active section
-      const sections = ['home', 'about', 'education', 'certifications', 'projects', 'contact'];
-      let current = 'home';
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 120) {
-            current = section;
-          }
+      let current = SECTION_IDS[0];
+      for (const id of SECTION_IDS) {
+        const element = document.getElementById(id);
+        if (element && element.getBoundingClientRect().top <= 120) {
+          current = id;
         }
       }
-
       setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const handleSmoothScroll = (e, href) => {
@@ -60,13 +69,6 @@ function Navigation() {
       scrollTo: { y: href, offsetY: 80 },
       overwrite: 'auto',
     });
-  };
-
-  const handleDownloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/assets/DDJL_Resume.pdf';
-    link.download = 'DDJL_Resume.pdf';
-    link.click();
   };
 
   return (
@@ -109,23 +111,17 @@ function Navigation() {
           </div>
         </div>
 
-        {/* Right Column: Dark Mode Toggle & Resume */}
+        {/* Right Column: Resume */}
         <div className="flex items-center gap-4">
-          {/* Dark Mode Toggle */}
-          {/* <div className="hidden md:block">
-            <DarkModeToggle />
-          </div> */}
-
           <div className="hidden md:flex">
-            <button
-              onClick={handleDownloadResume}
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full bg-[#D4AF37] px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.2em] text-[#0D1B2A] transition duration-200 hover:bg-[#F7F3E9] shadow-lg hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D1B2A]"
-              aria-label="Download resume"
+            <a
+              href={RESUME_URL}
+              download
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.2em] text-navy transition duration-200 hover:bg-cream shadow-lg hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
             >
               <Icon path={mdiDownload} size={0.8} />
               Résumé
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -163,18 +159,15 @@ function Navigation() {
             ))}
           </div>
           <div className="mt-4 flex flex-col gap-3">
-            <button
-              onClick={handleDownloadResume}
-              type="button"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#0D1B2A] transition duration-200 hover:bg-[#F7F3E9] shadow-lg hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D1B2A]"
-              aria-label="Download resume"
+            <a
+              href={RESUME_URL}
+              download
+              onClick={() => setIsOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-navy transition duration-200 hover:bg-cream shadow-lg hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
             >
               <Icon path={mdiDownload} size={0.8} />
-              Resume
-            </button>
-            <div className="flex justify-center">
-              <DarkModeToggle />
-            </div>
+              Résumé
+            </a>
           </div>
         </div>
       )}
