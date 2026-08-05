@@ -6,6 +6,7 @@
 
 I'm an IT student with hands-on experience across full-stack development, UI/UX design, and cloud architecture. I'm comfortable picking up new stacks quickly — from React and Node.js to Django and Spring Boot — and I enjoy owning a project end-to-end, from Figma mockups to shipped features. I'm AWS-certified in cloud architecture and foundations, and I'm currently expanding into test automation and DevOps fundamentals.
 
+<!---###
 ## 🚀 Featured Projects
 
 - **[Ally – AI-Powered Legal Platform](https://github.com/piolonrqz/Capstone-ALLY)** *(Capstone)*
@@ -22,7 +23,7 @@ I'm an IT student with hands-on experience across full-stack development, UI/UX 
 
 - **[Misisipi Cipher – Classical Encryption Chat App](https://github.com/Dadaisuk1/misisipi-cipher)**
   Built a full-stack chat app implementing classical encryption algorithms (Caesar, Vigenère, Rail Fence, Playfair) for message encryption and decryption.
-
+--->
 ## 📜 Certifications
 
 - [AWS Academy Graduate – Cloud Architecting](https://www.credly.com/badges/0da04100-740d-41f0-95c1-9c688737edde/public_url) — Dec 2025
